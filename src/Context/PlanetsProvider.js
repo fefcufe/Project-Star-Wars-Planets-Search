@@ -5,6 +5,8 @@ import PlanetsContext from './PlanetsContext';
 function PlanetsProvider({ children }) {
   // const context = getPlanets();
   const [data, setData] = useState([]);
+  const [input, setInput] = useState('');
+  const [filteredByName, setFilteredByName] = useState([]);
 
   useEffect(() => {
     const URL_PLANETS = 'https://swapi-trybe.herokuapp.com/api/planets/';
@@ -18,8 +20,23 @@ function PlanetsProvider({ children }) {
     getPlanets();
   }, []);
 
+  // referencia para a filtragem de data retirada de https://www.freecodecamp.org/news/build-a-search-filter-using-react-and-react-hooks/
+  useEffect(() => {
+    if (input !== '') {
+      const filteredData = data.filter(({ name }) => name.toLowerCase()
+        .includes(input.toLowerCase()));
+      setFilteredByName(filteredData);
+    } else {
+      setFilteredByName(data);
+    }
+  }, [input, data]);
+
   return (
-    <PlanetsContext.Provider value={ { data, setData } }>
+    <PlanetsContext.Provider
+      value={
+        { data, setData, input, setInput, filteredByName, setFilteredByName }
+      }
+    >
       { children }
     </PlanetsContext.Provider>
   );

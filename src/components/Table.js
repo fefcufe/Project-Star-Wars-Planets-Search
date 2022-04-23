@@ -2,11 +2,21 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../Context/PlanetsContext';
 
 function Table() {
-  const { data } = useContext(PlanetsContext);
+  const { input,
+    setInput,
+    filteredByName } = useContext(PlanetsContext);
   // console.log(data);
+
   return (
     <>
       <h1> StarWars Planets Search </h1>
+      <input
+        placeholder="Busque um planeta"
+        type="text"
+        data-testid="name-filter"
+        value={ input }
+        onChange={ (e) => setInput(e.target.value) }
+      />
       <table>
         <thead>
           <tr>
@@ -26,7 +36,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          { data.map((planet) => (
+          { filteredByName.map((planet) => (
             <tr key={ planet.name }>
               <td>{planet.name}</td>
               <td>{planet.rotation_period}</td>
