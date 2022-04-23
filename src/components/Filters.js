@@ -21,7 +21,7 @@ function Filters() {
 
     if (comparisonFilter === 'igual a') {
       const twoFiltersPlanets = filteredByName
-        .filter((planeta) => (Number(planeta[columnFilter]) < Number(valueFilter)));
+        .filter((planeta) => (Number(planeta[columnFilter]) === Number(valueFilter)));
       setFilteredByName(twoFiltersPlanets);
     }
   };
