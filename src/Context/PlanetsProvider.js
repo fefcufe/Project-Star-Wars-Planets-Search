@@ -7,6 +7,9 @@ function PlanetsProvider({ children }) {
   const [data, setData] = useState([]);
   const [input, setInput] = useState('');
   const [filteredByName, setFilteredByName] = useState([]);
+  const [columnFilter, setColumnFilter] = useState('population');
+  const [comparisonFilter, setComparisonFilter] = useState('maior que');
+  const [valueFilter, setValueFilter] = useState(0);
 
   useEffect(() => {
     const URL_PLANETS = 'https://swapi-trybe.herokuapp.com/api/planets/';
@@ -34,7 +37,18 @@ function PlanetsProvider({ children }) {
   return (
     <PlanetsContext.Provider
       value={
-        { data, setData, input, setInput, filteredByName, setFilteredByName }
+        { data,
+          setData,
+          input,
+          setInput,
+          filteredByName,
+          setFilteredByName,
+          columnFilter,
+          setColumnFilter,
+          comparisonFilter,
+          setComparisonFilter,
+          valueFilter,
+          setValueFilter }
       }
     >
       { children }
