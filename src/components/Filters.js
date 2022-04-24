@@ -6,7 +6,24 @@ function Filters() {
     comparisonFilter, setComparisonFilter, valueFilter,
     setValueFilter, filteredByName, setFilteredByName,
     filterByNumericValues,
-    setFilterByNumericValues } = useContext(PlanetsContext);
+    setFilterByNumericValues, usedFilters,
+    setUsedFilters } = useContext(PlanetsContext);
+
+  const handleUsedFilters = (column, comparison, value) => {
+    const renderFilter = {
+      column,
+      comparison,
+      value,
+    };
+    setUsedFilters([...usedFilters, renderFilter]);
+  };
+
+  const handleX = (remColumn) => {
+    const updatedUsedFilters = usedFilters.filter(({ column }) => column !== remColumn);
+    setUsedFilters(updatedUsedFilters);
+    /*     setFilterByNumericValues(...filterByNumericValues,
+      { value: remColumn, label: remColumn.toUpperCase() }); */
+  };
 
   const removeFilter = (column) => {
     const updatedFilters = filterByNumericValues.filter(({ value }) => column !== value);
@@ -33,6 +50,7 @@ function Filters() {
     }
 
     removeFilter(columnFilter);
+    handleUsedFilters(columnFilter, comparisonFilter, valueFilter);
   };
 
   return (
@@ -86,6 +104,24 @@ function Filters() {
           Filtrar
         </button>
       </div>
+      <ul>
+        { usedFilters.map(({ column, comparison, value }, index) => (
+          <li
+            key={ index }
+            data-testid="filter"
+            value={ column }
+          >
+            { `${column} ${comparison} ${value}` }
+            <button
+              type="button"
+              data-testid="button-remove-filters"
+              onClick={ () => handleX(column) }
+            >
+              X
+            </button>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

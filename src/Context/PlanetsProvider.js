@@ -11,15 +11,16 @@ function PlanetsProvider({ children }) {
   const [valueFilter, setValueFilter] = useState(0);
   // referencia retirada de https://www.codegrepper.com/code-examples/javascript/find+add+or+remove+react-select
   const initialFilterColumns = [
-    { value: 'population', label: 'Population' },
-    { value: 'orbital_period', label: 'Orbital Period' },
-    { value: 'diameter', label: 'Diameter' },
-    { value: 'rotation_period', label: 'Rotation Period' },
-    { value: 'surface_water', label: 'Surface Water' },
+    { value: 'population', label: 'POPULATION' },
+    { value: 'orbital_period', label: 'ORBITAL_PERIOD' },
+    { value: 'diameter', label: 'DIAMETER' },
+    { value: 'rotation_period', label: 'ROTATION_PERIOD' },
+    { value: 'surface_water', label: 'SURFACE_WATER' },
   ];
   const [filterByNumericValues,
     setFilterByNumericValues,
   ] = useState(initialFilterColumns);
+  const [usedFilters, setUsedFilters] = useState([]);
 
   useEffect(() => {
     const URL_PLANETS = 'https://swapi-trybe.herokuapp.com/api/planets/';
@@ -59,7 +60,9 @@ function PlanetsProvider({ children }) {
           valueFilter,
           setValueFilter,
           filterByNumericValues,
-          setFilterByNumericValues }
+          setFilterByNumericValues,
+          usedFilters,
+          setUsedFilters }
       }
     >
       { children }
