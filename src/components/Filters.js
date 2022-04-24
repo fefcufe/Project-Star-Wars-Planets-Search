@@ -4,9 +4,16 @@ import PlanetsContext from '../Context/PlanetsContext';
 function Filters() {
   const { input, setInput, columnFilter, setColumnFilter,
     comparisonFilter, setComparisonFilter, valueFilter,
-    setValueFilter, filteredByName, setFilteredByName } = useContext(PlanetsContext);
+    setValueFilter, filteredByName, setFilteredByName,
+    filterByNumericValues,
+    setFilterByNumericValues } = useContext(PlanetsContext);
 
-  const addFilters = () => {
+  const removeFilter = (column) => {
+    const updatedFilters = filterByNumericValues.filter(({ value }) => column !== value);
+    setFilterByNumericValues(updatedFilters);
+  };
+
+  const handleFilters = () => {
     if (comparisonFilter === 'maior que') {
       const twoFiltersPlanets = filteredByName
         .filter((planeta) => (Number(planeta[columnFilter]) > Number(valueFilter)));
@@ -24,6 +31,8 @@ function Filters() {
         .filter((planeta) => (Number(planeta[columnFilter]) === Number(valueFilter)));
       setFilteredByName(twoFiltersPlanets);
     }
+
+    removeFilter(columnFilter);
   };
 
   return (
@@ -43,11 +52,13 @@ function Filters() {
           value={ columnFilter }
           onChange={ (e) => setColumnFilter(e.target.value) }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          { filterByNumericValues.map((option) => (
+            <option
+              key={ option.label }
+              value={ option.value }
+            >
+              { option.value }
+            </option>)) }
         </select>
 
         <select
@@ -70,7 +81,7 @@ function Filters() {
         <button
           data-testid="button-filter"
           type="button"
-          onClick={ () => addFilters() }
+          onClick={ () => handleFilters() }
         >
           Filtrar
         </button>

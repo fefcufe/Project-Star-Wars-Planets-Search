@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 import PlanetsContext from './PlanetsContext';
 
 function PlanetsProvider({ children }) {
-  // const context = getPlanets();
   const [data, setData] = useState([]);
   const [input, setInput] = useState('');
   const [filteredByName, setFilteredByName] = useState([]);
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
+  // referencia retirada de https://www.codegrepper.com/code-examples/javascript/find+add+or+remove+react-select
+  const initialFilterColumns = [
+    { value: 'population', label: 'Population' },
+    { value: 'orbital_period', label: 'Orbital Period' },
+    { value: 'diameter', label: 'Diameter' },
+    { value: 'rotation_period', label: 'Rotation Period' },
+    { value: 'surface_water', label: 'Surface Water' },
+  ];
+  const [filterByNumericValues,
+    setFilterByNumericValues,
+  ] = useState(initialFilterColumns);
 
   useEffect(() => {
     const URL_PLANETS = 'https://swapi-trybe.herokuapp.com/api/planets/';
@@ -18,7 +28,6 @@ function PlanetsProvider({ children }) {
       // referencia retirada de stackoverflow no link: https://stackoverflow.com/questions/18133635/remove-property-for-all-objects-in-array
       results.forEach((planet) => delete planet.residents);
       setData(results);
-      // console.log(results);
     };
     getPlanets();
   }, []);
@@ -48,7 +57,9 @@ function PlanetsProvider({ children }) {
           comparisonFilter,
           setComparisonFilter,
           valueFilter,
-          setValueFilter }
+          setValueFilter,
+          filterByNumericValues,
+          setFilterByNumericValues }
       }
     >
       { children }
