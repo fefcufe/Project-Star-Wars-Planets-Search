@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import PlanetsContext from '../Context/PlanetsContext';
+import './TableStyle.css';
 
 function Table() {
   const { filteredByName } = useContext(PlanetsContext);
