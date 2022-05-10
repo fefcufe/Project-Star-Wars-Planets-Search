@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-// import { BiSearchAlt } from 'react-icons/fa';
+import gif from '../images/title.gif';
 import PlanetsContext from '../Context/PlanetsContext';
 import './FiltersStyle.css';
 
@@ -57,23 +57,39 @@ function Filters() {
 
   return (
     <>
-      <h1> StarWars Planets Search </h1>
-
-      <div className="search-container">
-
-        <label htmlFor="name_filter">
-          <input
-            id="name_filter"
-            placeholder="Busque um planeta"
-            type="text"
-            data-testid="name-filter"
-            value={ input }
-            onChange={ (e) => setInput(e.target.value) }
-          >
-          </input>
-        </label>
-      
+      <div className='title-container'>
+        <img src={ gif } alt="starWars-gif"/>
       </div>
+      
+      <div className="search-container">
+        <div className="search-wrapper">
+          <div id="cover">
+            <form method="get" action="">
+              <div className="tb">
+                <div className="td">
+                  <input
+                    id="name_filter"
+                    placeholder="Busque um planeta"
+                    type="text"
+                    data-testid="name-filter"
+                    value={ input }
+                    onChange={ (e) => setInput(e.target.value) }
+                    required
+                  />
+                </div>
+                <div className="td" id="s-cover">
+                  <button type="button" id="search-name">
+                    <div id="s-circle"></div>
+                    <span></span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      
+      
 
     <div className="filters-container">
         <label htmlFor="column_filter">
